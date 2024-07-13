@@ -1,0 +1,79 @@
+---Host/Student info----
+
+Running on Fri Jul 12 08:01:02 PM EDT 2024
+Run by student - () on host
+ Static hostname: generic-vm
+      Machine ID: fd098b0725044d01a8e34b6574415512
+Operating System: Ubuntu 24.04 LTS
+23454e7f1c80da61b69217db1155bf18  ./check-assign2-script.sh - 23454e7f1c80da61b69217db1155bf18  -
+------------------------
+
+---Start of Assignment2.sh Check------
+---Running makecontainers.sh----------
+This script performs many tasks. Please be patient
+To see more about what it is doing as it does it, use the --verbose option
+Network lan deleted
+Network mgmt deleted
+Network lan created
+Network mgmt created
+Launching openwrt
+Retrieving image: Unpack: 100% (1.79GB/s)                                          Retrieving image: Unpack: 100% (1.79GB/s)                                          Launching server1
+Retrieving image: Unpack: 100% (1.83GB/s)                                          Retrieving image: Unpack: 100% (1.83GB/s)                                          You may ignore any messages about Open vSwitch
+Selecting previously unselected package openssh-sftp-server.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 16298 files and directories currently installed.)
+Preparing to unpack .../0-openssh-sftp-server_1%3a8.9p1-3ubuntu0.10_amd64.deb ...
+Unpacking openssh-sftp-server (1:8.9p1-3ubuntu0.10) ...
+Selecting previously unselected package libwrap0:amd64.
+Preparing to unpack .../1-libwrap0_7.6.q-31build2_amd64.deb ...
+Unpacking libwrap0:amd64 (7.6.q-31build2) ...
+Selecting previously unselected package openssh-server.
+Preparing to unpack .../2-openssh-server_1%3a8.9p1-3ubuntu0.10_amd64.deb ...
+Unpacking openssh-server (1:8.9p1-3ubuntu0.10) ...
+Selecting previously unselected package libpsl5:amd64.
+Preparing to unpack .../3-libpsl5_0.21.0-1.2build2_amd64.deb ...
+Unpacking libpsl5:amd64 (0.21.0-1.2build2) ...
+Selecting previously unselected package publicsuffix.
+Preparing to unpack .../4-publicsuffix_20211207.1025-1_all.deb ...
+Unpacking publicsuffix (20211207.1025-1) ...
+Selecting previously unselected package wget.
+Preparing to unpack .../5-wget_1.21.2-2ubuntu1.1_amd64.deb ...
+Unpacking wget (1.21.2-2ubuntu1.1) ...
+Selecting previously unselected package ncurses-term.
+Preparing to unpack .../6-ncurses-term_6.3-2ubuntu0.1_all.deb ...
+Unpacking ncurses-term (6.3-2ubuntu0.1) ...
+Selecting previously unselected package python3-distro.
+Preparing to unpack .../7-python3-distro_1.7.0-1_all.deb ...
+Unpacking python3-distro (1.7.0-1) ...
+Selecting previously unselected package ssh-import-id.
+Preparing to unpack .../8-ssh-import-id_5.11-0ubuntu1_all.deb ...
+Unpacking ssh-import-id (5.11-0ubuntu1) ...
+Setting up openssh-sftp-server (1:8.9p1-3ubuntu0.10) ...
+Setting up libpsl5:amd64 (0.21.0-1.2build2) ...
+Setting up python3-distro (1.7.0-1) ...
+Setting up wget (1.21.2-2ubuntu1.1) ...
+Setting up ssh-import-id (5.11-0ubuntu1) ...
+Setting up libwrap0:amd64 (7.6.q-31build2) ...
+Setting up publicsuffix (20211207.1025-1) ...
+Setting up ncurses-term (6.3-2ubuntu0.1) ...
+Setting up openssh-server (1:8.9p1-3ubuntu0.10) ...
+
+Creating config file /etc/ssh/sshd_config with new version
+Creating SSH2 RSA key; this may take some time ...
+3072 SHA256:u3bEUmdRp+i8dkNQOmDSZeaeKzp9zQlOHsbEAV94cqU root@server1 (RSA)
+Creating SSH2 ECDSA key; this may take some time ...
+256 SHA256:mioLNnkfe9p4DhbMSyYGZdst84EO8DqUx5fXhvEccjU root@server1 (ECDSA)
+Creating SSH2 ED25519 key; this may take some time ...
+256 SHA256:J/PwZx/Nm5FW9Iq/NWyKNVtAiooFAVIhnydKCWM7H4A root@server1 (ED25519)
+Created symlink /etc/systemd/system/sshd.service → /lib/systemd/system/ssh.service.
+Created symlink /etc/systemd/system/multi-user.target.wants/ssh.service → /lib/systemd/system/ssh.service.
+rescue-ssh.target is a disabled or a static unit, not starting it.
+ssh.socket is a disabled or a static unit, not starting it.
+Processing triggers for libc-bin (2.35-0ubuntu3.8) ...
+Pushing /home/student/.ssh/id_ed25519.pub to /home/remoteadmin/.ssh/id_ed25519.pub: 100% (192.68MB/s)                                                                                                      Waiting for server1 reboot
+# Host server1-mgmt found: line 4
+/home/student/.ssh/known_hosts updated.
+Original contents retained as /home/student/.ssh/known_hosts.old
+---Retrieving assignment2.sh script---
+Retrieved assignment2 script
+Copied assignment2.sh script to server1
+---assignment2.sh run----
