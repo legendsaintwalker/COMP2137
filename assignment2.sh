@@ -44,18 +44,23 @@ add_netplan_config() {
     echo "Adding new network configuration to netplan..."
     cat <<EOL > $NETPLAN_CONFIG
 network:
-  version: 2
-  ethernets:
-    $INTERFACE:
-      addresses:
-        - $NEW_IP/$SUBNET_MASK
-      gateway4: $GATEWAY
-      nameservers:
-        addresses:
-          - $DNS1
-          - $DNS2
+    version: 2
+    ethernets:
+        $INTERFACE:
+            addresses: [$NEW_IP/$SUBNET_MASK]
+            routes:
+              - to: default
+                via: $GATEWAY
+            nameservers:
+                addresses: [192.168.16.2]
+                search: [home.arpa, localdomain]
+        eth1:
+            addresses: [172.16.1.200/24]
 EOL
 }
+
+
+
 
 # Apply new netplan configuration
 add_netplan_config
