@@ -124,17 +124,17 @@ else
 fi
 
 # Function to set up UFW (Uncomplicated Firewall) rules
-setup_ufw_rules() {
+
     echo "Setting up UFW rules..."
     # Reset UFW to default settings
-    sudo ufw reset -y
+    sudo ufw reset
 
     # Set default policies to deny incoming connections and allow outgoing
     sudo ufw default deny incoming
     sudo ufw default allow outgoing
 
     # Allow SSH access only from the management network
-    sudo ufw allow from $MGMT_NETWORK to any port 22 -y
+    sudo ufw allow from $MGMT_NETWORK to any port 22
 
     # Allow HTTP traffic on all interfaces
     sudo ufw allow $HTTP_PORT/tcp
@@ -143,14 +143,14 @@ setup_ufw_rules() {
     sudo ufw allow $PROXY_PORT/tcp
 
     # Enable UFW
-    sudo ufw enable
+    sudo ufw enable -y
 
     # Show UFW status and rules
     sudo ufw status verbose
-}
+
 
 # Execute the function to set up UFW rules
-setup_ufw_rules
+
 
 # Define the list of users
 users=("dennis" "aubrey" "captain" "snibbles" "brownie" "scooter" "sandy" "perrier" "cindy" "tiger" "yoda")
