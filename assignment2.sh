@@ -110,20 +110,6 @@ MGMT_NETWORK="192.168.1.0/24"  # Change this to your management network subnet
 HTTP_PORT=80
 PROXY_PORT=3128  # Change this if your proxy uses a different port
 
-# Function to check if a package is installed
-is_installed() {
-  dpkg -l | grep -q "$1"
-}
-
-# Check if UFW is installed
-if ! is_installed "ufw"; then
-  echo "UFW is not installed. Installing UFW."
-  sudo apt-get update
-  sudo apt-get install -y ufw
-else
-  echo "UFW is already installed."
-fi
-
 # Function to set up UFW (Uncomplicated Firewall) rules
 setup_ufw_rules() {
     echo "Setting up UFW rules..."
