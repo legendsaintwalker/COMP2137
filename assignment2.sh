@@ -24,7 +24,7 @@ INTERFACE="eth0"
 # New IP address, subnet mask, and gateway
 NEW_IP="192.168.16.21"
 SUBNET_MASK="24"
-GATEWAY="192.168.16.1"
+GATEWAY="192.168.16.2"
 
 # DNS servers (optional, adjust if needed)
 DNS1="8.8.8.8"
