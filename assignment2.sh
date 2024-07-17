@@ -127,14 +127,14 @@ fi
 
     echo "Setting up UFW rules..."
     # Reset UFW to default settings
-    sudo ufw reset
+    sudo ufw reset -y
 
     # Set default policies to deny incoming connections and allow outgoing
     sudo ufw default deny incoming
     sudo ufw default allow outgoing
 
     # Allow SSH access only from the management network
-    sudo ufw allow from $MGMT_NETWORK to any port 22
+    sudo ufw allow from $MGMT_NETWORK to any port 22 -y
 
     # Allow HTTP traffic on all interfaces
     sudo ufw allow $HTTP_PORT/tcp
@@ -143,7 +143,7 @@ fi
     sudo ufw allow $PROXY_PORT/tcp
 
     # Enable UFW
-    sudo ufw enable -y
+    echo "y" | sudo ufw enable
 
     # Show UFW status and rules
     sudo ufw status verbose
