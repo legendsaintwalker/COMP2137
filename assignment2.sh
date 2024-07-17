@@ -135,6 +135,7 @@ fi
 
     # Allow SSH access only from the management network
     sudo ufw allow from 172.16.1.1 to any port 22
+    sudo ufw allow from 192.168.16.1 to any port 22
 
     # Allow HTTP traffic on all interfaces
     sudo ufw allow $HTTP_PORT/tcp
