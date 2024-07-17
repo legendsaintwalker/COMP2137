@@ -134,7 +134,7 @@ setup_ufw_rules() {
     sudo ufw default allow outgoing
 
     # Allow SSH access only from the management network
-    sudo ufw allow from $MGMT_NETWORK to any port 22
+    sudo ufw allow from $MGMT_NETWORK to any port 22 -y
 
     # Allow HTTP traffic on all interfaces
     sudo ufw allow $HTTP_PORT/tcp
@@ -143,7 +143,7 @@ setup_ufw_rules() {
     sudo ufw allow $PROXY_PORT/tcp
 
     # Enable UFW
-    sudo ufw enable -y
+    sudo ufw enable
 
     # Show UFW status and rules
     sudo ufw status verbose
