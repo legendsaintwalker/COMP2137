@@ -106,7 +106,7 @@ check_and_install squid
 echo "Apache and Squid have been checked and installed."
 
 # Define management network and ports for UFW rules
-MGMT_NETWORK="172.16.1.1"  # Change this to your management network subnet
+MGMT_NETWORK="192.168.1.0"  # Change this to your management network subnet
 HTTP_PORT=80
 PROXY_PORT=3128  # Change this if your proxy uses a different port
 
@@ -124,18 +124,22 @@ else
 fi
 
 # Function to set up UFW (Uncomplicated Firewall) rules
-
+setup_ufw_rules() {
     echo "Setting up UFW rules..."
     # Reset UFW to default settings
-    sudo ufw reset
+    sudo ufw reset 
 
     # Set default policies to deny incoming connections and allow outgoing
     sudo ufw default deny incoming
     sudo ufw default allow outgoing
 
     # Allow SSH access only from the management network
-    sudo ufw allow from 172.16.1.1 to any port 22
-    sudo ufw allow from 192.168.16.1 to any port 22
+    sudo ufw allow from $MGMT_NETWORK to any port 22 
+	sudo ufw allow from 192.168.16.1 to any port 22
+	sudo ufw allow from 192.168.16.2 to any port 22
+	sudo ufw allow from 172.16.1.1 to any port 22
+	sudo ufw allow from 172.16.1.10 to any port 22
+	
 
     # Allow HTTP traffic on all interfaces
     sudo ufw allow $HTTP_PORT/tcp
@@ -144,14 +148,14 @@ fi
     sudo ufw allow $PROXY_PORT/tcp
 
     # Enable UFW
-    sudo ufw enable
+    sudo ufw enable 
 
     # Show UFW status and rules
     sudo ufw status verbose
-
+}
 
 # Execute the function to set up UFW rules
-
+setup_ufw_rules
 
 # Define the list of users
 users=("dennis" "aubrey" "captain" "snibbles" "brownie" "scooter" "sandy" "perrier" "cindy" "tiger" "yoda")
