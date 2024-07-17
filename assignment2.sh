@@ -142,8 +142,6 @@ fi
     # Allow web proxy traffic on all interfaces
     sudo ufw allow $PROXY_PORT/tcp
 
-    # Enable UFW
-    sudo ufw --force enable
 
     # Show UFW status and rules
     sudo ufw status verbose
