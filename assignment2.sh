@@ -106,7 +106,7 @@ check_and_install squid
 echo "Apache and Squid have been checked and installed."
 
 # Define management network and ports for UFW rules
-MGMT_NETWORK="192.168.1.0/24"  # Change this to your management network subnet
+MGMT_NETWORK="192.168.16.2/24"  # Change this to your management network subnet
 HTTP_PORT=80
 PROXY_PORT=3128  # Change this if your proxy uses a different port
 
@@ -142,6 +142,8 @@ fi
     # Allow web proxy traffic on all interfaces
     sudo ufw allow $PROXY_PORT/tcp
 
+    # Enable UFW
+    sudo ufw enable
 
     # Show UFW status and rules
     sudo ufw status verbose
