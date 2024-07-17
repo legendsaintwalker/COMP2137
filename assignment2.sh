@@ -136,11 +136,13 @@ setup_ufw_rules() {
 
 	echo "Allowing ssh access on known networks"
     # Allow SSH access only from the management network
+    sudo ufw allow ssh
     sudo ufw allow from $MGMT_NETWORK to any port 22 
 	sudo ufw allow from 192.168.16.1 to any port 22
 	sudo ufw allow from 192.168.16.2 to any port 22
 	sudo ufw allow from 172.16.1.1 to any port 22
 	sudo ufw allow from 172.16.1.10 to any port 22
+	
 	
 	echo " allowing http traffic"
     # Allow HTTP traffic on all interfaces
