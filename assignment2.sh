@@ -126,12 +126,15 @@ fi
 # Function to set up UFW (Uncomplicated Firewall) rules
 setup_ufw_rules() {
     echo "Setting up UFW rules..."
- 
+    # Reset UFW to default settings
 
+
+	echo " Allowing outgoing and denying incoming request"
     # Set default policies to deny incoming connections and allow outgoing
     sudo ufw default deny incoming
     sudo ufw default allow outgoing
 
+	echo "Allowing ssh access on known networks"
     # Allow SSH access only from the management network
     sudo ufw allow from $MGMT_NETWORK to any port 22 
 	sudo ufw allow from 192.168.16.1 to any port 22
@@ -139,14 +142,16 @@ setup_ufw_rules() {
 	sudo ufw allow from 172.16.1.1 to any port 22
 	sudo ufw allow from 172.16.1.10 to any port 22
 	
-
+	echo " allowing http traffic"
     # Allow HTTP traffic on all interfaces
     sudo ufw allow $HTTP_PORT/tcp
 
+	echo "allowing web proxy"
     # Allow web proxy traffic on all interfaces
     sudo ufw allow $PROXY_PORT/tcp
 
     # Enable UFW
+	echo " enabling ufw"
     sudo ufw enable 
 
     # Show UFW status and rules
