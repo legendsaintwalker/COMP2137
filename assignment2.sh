@@ -143,7 +143,7 @@ setup_ufw_rules() {
     sudo ufw allow $PROXY_PORT/tcp
 
     # Enable UFW
-    sudo ufw enable
+    sudo ufw enable -y
 
     # Show UFW status and rules
     sudo ufw status verbose
