@@ -134,7 +134,7 @@ fi
     sudo ufw default allow outgoing
 
     # Allow SSH access only from the management network
-    sudo ufw allow from $MGMT_NETWORK to any port 22 -y
+    sudo ufw allow from 172.16.1.2 to any port 22
 
     # Allow HTTP traffic on all interfaces
     sudo ufw allow $HTTP_PORT/tcp
