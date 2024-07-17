@@ -127,7 +127,6 @@ fi
 setup_ufw_rules() {
     echo "Setting up UFW rules..."
     # Reset UFW to default settings
-    sudo ufw reset 
 
     # Set default policies to deny incoming connections and allow outgoing
     sudo ufw default deny incoming
