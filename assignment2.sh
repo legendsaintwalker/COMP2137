@@ -143,7 +143,7 @@ fi
     sudo ufw allow $PROXY_PORT/tcp
 
     # Enable UFW
-    echo "y" | sudo ufw enable
+    sudo ufw --force enable
 
     # Show UFW status and rules
     sudo ufw status verbose
