@@ -126,7 +126,7 @@ fi
 # Function to set up UFW (Uncomplicated Firewall) rules
 setup_ufw_rules() {
     echo "Setting up UFW rules..."
-    # Reset UFW to default settings
+ 
 
     # Set default policies to deny incoming connections and allow outgoing
     sudo ufw default deny incoming
