@@ -2,6 +2,11 @@
 
 #!/bin/bash
 
+if [ "$EUID" -ne 0 ]; then
+    echo "Please run as root or use sudo."
+    exit 1
+fi
+
 # Ignore TERM, HUP and INT signals
 trap '' TERM HUP INT
 
@@ -10,6 +15,13 @@ HOSTNAME=""
 IPADDRESS=""
 HOSTENTRY_NAME=""
 HOSTENTRY_IP=""
+
+SUBNET_MASK="24"
+GATEWAY="192.168.16.2"
+
+# DNS servers (optional, adjust if needed)
+DNS1="8.8.8.8"
+DNS2="8.8.4.4"
 
 # Function to print verbose messages
 function vprint() {
@@ -35,14 +47,26 @@ function update_hostname() {
 # Function to update the IP address
 function update_ipaddress() {
     CURRENT_IP=$(hostname -I | awk '{print $1}')
-    NETPLAN_FILE="/etc/netplan/01-netcfg.yaml"
+    NETPLAN_FILE="/etc/netplan/10-lxc.yaml"
 
     if [ "$CURRENT_IP" != "$IPADDRESS" ]; then
         vprint "Changing IP address from $CURRENT_IP to $IPADDRESS"
-        sed -i "s/$CURRENT_IP/$IPADDRESS/g" /etc/hosts
-        sed -i "s/addresses: \[.*\]/addresses: \[$IPADDRESS\/24\]/g" "$NETPLAN_FILE"
-        netplan apply
-        logger "IP address changed from $CURRENT_IP to $IPADDRESS"
+           cat <<EOL > $NETPLAN_FILE
+network:
+    version: 2
+    ethernets:
+        $INTERFACE:
+            addresses: [$IPADDRESS/$SUBNET_MASK]
+            routes:
+              - to: default
+                via: $GATEWAY
+            nameservers:
+                addresses: [192.168.16.2]
+                search: [home.arpa, localdomain]
+        eth1:
+            addresses: [172.16.1.200/24]
+EOL
+
     else
         vprint "IP address is already set to $IPADDRESS"
     fi
@@ -61,7 +85,7 @@ function update_hostentry() {
         fi
     else
         vprint "Adding new host entry $HOSTENTRY_IP $HOSTENTRY_NAME"
-        echo "$HOSTENTRY_IP $HOSTENTRY_NAME" >> /etc/hosts
+        sudo echo "$HOSTENTRY_IP $HOSTENTRY_NAME" >> /etc/hosts
         logger "Host entry added: $HOSTENTRY_IP $HOSTENTRY_NAME"
     fi
 }
@@ -108,3 +132,4 @@ fi
 
 # Exit script
 exit 0
+

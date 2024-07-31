@@ -6,7 +6,7 @@ VERBOSE=0
 VERBOSE_OPTION=""
 
 # Function to print verbose messages
-function vprint() {
+vprint() {
     if [ "$VERBOSE" -eq 1 ]; then
         echo "$1"
     fi
@@ -22,7 +22,7 @@ for arg in "$@"; do
 done
 
 # Function to transfer and execute the script on a remote server
-function execute_remote_script() {
+execute_remote_script() {
     local SERVER=$1
     local COMMAND=$2
 
@@ -34,9 +34,20 @@ function execute_remote_script() {
     fi
 
     vprint "Executing configure-host.sh on $SERVER"
-    ssh remoteadmin@$SERVER -- "/root/configure-host.sh $VERBOSE_OPTION $COMMAND"
+    ssh remoteadmin@$SERVER "sudo /root/configure-host.sh $VERBOSE_OPTION $COMMAND"
     if [ $? -ne 0 ]; then
         echo "Error: Failed to execute configure-host.sh on $SERVER"
+        exit 1
+    fi
+}
+
+# Function to update the local /etc/hosts file
+update_local_hosts() {
+    local HOST_ENTRY=$1
+    vprint "Updating local /etc/hosts file with $HOST_ENTRY"
+    ./configure-host.sh $VERBOSE_OPTION -hostentry $HOST_ENTRY
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to update local /etc/hosts file for $HOST_ENTRY"
         exit 1
     fi
 }
@@ -47,18 +58,9 @@ execute_remote_script "server1-mgmt" "-name loghost -ip 192.168.16.3 -hostentry 
 # Execute the script on server2
 execute_remote_script "server2-mgmt" "-name webhost -ip 192.168.16.4 -hostentry loghost 192.168.16.3"
 
-# Execute the script on the local machine
-vprint "Updating local /etc/hosts file"
-./configure-host.sh $VERBOSE_OPTION -hostentry loghost 192.168.16.3
-if [ $? -ne 0 ]; then
-    echo "Error: Failed to update local /etc/hosts file for loghost"
-    exit 1
-fi
-
-./configure-host.sh $VERBOSE_OPTION -hostentry webhost 192.168.16.4
-if [ $? -ne 0 ]; then
-    echo "Error: Failed to update local /etc/hosts file for webhost"
-    exit 1
-fi
+# Update the local /etc/hosts file
+update_local_hosts "loghost 192.168.16.3"
+update_local_hosts "webhost 192.168.16.4"
 
 vprint "Script execution completed successfully"
+
