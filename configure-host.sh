@@ -1,6 +1,5 @@
 #!/bin/bash
 
-#!/bin/bash
 
 if [ "$EUID" -ne 0 ]; then
     echo "Please run as root or use sudo."
@@ -36,8 +35,8 @@ function update_hostname() {
     if [ "$CURRENT_HOSTNAME" != "$HOSTNAME" ]; then
         vprint "Changing hostname from $CURRENT_HOSTNAME to $HOSTNAME"
         echo "$HOSTNAME" > /etc/hostname
-        sed -i "s/$CURRENT_HOSTNAME/$HOSTNAME/g" /etc/hosts
-        hostnamectl set-hostname "$HOSTNAME"
+        sudo sed -i "s/$CURRENT_HOSTNAME/$HOSTNAME/g" /etc/hosts
+        sudo hostnamectl set-hostname "$HOSTNAME"
         logger "Hostname changed from $CURRENT_HOSTNAME to $HOSTNAME"
     else
         vprint "Hostname is already set to $HOSTNAME"
@@ -78,14 +77,14 @@ function update_hostentry() {
         CURRENT_HOSTENTRY=$(grep "$HOSTENTRY_IP" /etc/hosts)
         if [ "$CURRENT_HOSTENTRY" != "$HOSTENTRY_IP $HOSTENTRY_NAME" ]; then
             vprint "Updating host entry to $HOSTENTRY_IP $HOSTENTRY_NAME"
-            sed -i "s/.*$HOSTENTRY_IP.*/$HOSTENTRY_IP $HOSTENTRY_NAME/g" /etc/hosts
+            sudo sed -i "s/.*$HOSTENTRY_IP.*/$HOSTENTRY_IP $HOSTENTRY_NAME/g" /etc/hosts
             logger "Host entry changed to $HOSTENTRY_IP $HOSTENTRY_NAME"
         else
             vprint "Host entry is already set to $HOSTENTRY_IP $HOSTENTRY_NAME"
         fi
     else
         vprint "Adding new host entry $HOSTENTRY_IP $HOSTENTRY_NAME"
-        sudo echo "$HOSTENTRY_IP $HOSTENTRY_NAME" >> /etc/hosts
+        echo "$HOSTENTRY_IP $HOSTENTRY_NAME" | sudo tee -a /etc/hosts > /dev/null
         logger "Host entry added: $HOSTENTRY_IP $HOSTENTRY_NAME"
     fi
 }
